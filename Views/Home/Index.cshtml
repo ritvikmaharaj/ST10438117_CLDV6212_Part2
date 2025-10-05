@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Full Screen Background</title>
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        font-family: Arial, sans-s erif;
+    }
+
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-image: url('/images/designer.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1;
+    }
+
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        padding: 0 20px;
+        text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .display-4 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .description {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+        white-space: nowrap;
+    }
+
+    .address {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        font-size: 0.8rem;
+        color: white;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    }
+</style>
+
+<div class="background"></div>
+
+<div class="content">
+    <h1 class="display-4">Welcome to Designer Closet</h1>
+    <p class="description">Discover the latest trends and exclusive collections to elevate your style.</p>
+</div>
+
+<div class="address">
+    59 Meridian Drive, Umhlanga
+</div>
+

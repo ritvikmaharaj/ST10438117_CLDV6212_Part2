@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Upload Contract";
+}
+
+<div class="container mt-5 mb-5 p-4 shadow-lg rounded elegant-form">
+    <h2 class="form-title mb-4 text-center">Upload Your Contract</h2>
+
+    <form asp-action="UploadFile" asp-controller="Contract" method="post" enctype="multipart/form-data">
+        <div class="form-group mb-4">
+            <label for="file" class="form-label">Select contract to upload:</label>
+            <input type="file" name="file" id="file" class="form-control form-control-custom" />
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-light px-4 py-2 elegant-btn">Upload</button>
+        </div>
+    </form>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="text-center mt-3">
+            <p style="color: #8fce00;">@TempData["Message"]</p>
+        </div>
+    }
+
+</div>
+
+<style>
+    body {
+        background-color: #000;
+        color: #fff;
+        font-family: 'Georgia', serif;
+    }
+
+    .elegant-form {
+        background-color: #1a1a1a;
+        border: 1px solid #444;
+        max-width: 600px;
+    }
+
+    .form-title {
+        color: #bfa37c;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .form-control-custom {
+        background-color: #2a2a2a;
+        border: 1px solid #555;
+        color: #fff;
+    }
+
+        .form-control-custom::file-selector-button {
+            background-color: #444;
+            border: none;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+
+            .form-control-custom::file-selector-button:hover {
+                background-color: #666;
+            }
+
+        .form-control-custom::placeholder {
+            color: #aaa;
+        }
+
+    .form-label {
+        color: #ccc;
+        font-weight: 500;
+    }
+
+    .elegant-btn {
+        border: 1px solid #bfa37c;
+        color: #bfa37c;
+        background-color: transparent;
+        transition: 0.3s ease;
+    }
+
+        .elegant-btn:hover {
+            background-color: #bfa37c;
+            color: #000;
+        }
+</style>
+

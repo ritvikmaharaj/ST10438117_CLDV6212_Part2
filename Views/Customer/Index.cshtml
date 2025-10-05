@@ -1,0 +1,101 @@
+﻿@model IEnumerable<DesignerCloset.Models.Customer>
+
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<div class="container mt-5 mb-5 p-4 shadow-lg rounded elegant-form">
+    <h2 class="form-title mb-4 text-center">
+        Client List
+    </h2>
+
+    <div class="text-end mb-3">
+        <a asp-action="Create" class="btn btn-outline-light elegant-btn">Create New</a>
+    </div>
+
+    <table class="table table-dark table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().CustomerName)</th>
+                <th>@Html.DisplayNameFor(model => model.First().CustomerSurname)</th>
+                <th>@Html.DisplayNameFor(model => model.First().CustomerCell)</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CustomerName</td>
+                    <td>@item.CustomerSurname</td>
+                    <td>@item.CustomerCell</td>
+                    <td class="text-center">
+                        <a asp-action="Delete" asp-route-partitionKey="@item.PartitionKey" asp-route-rowKey="@item.RowKey"
+                           class="btn btn-sm btn-outline-danger elegant-btn">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    body {
+        background-color: #000;
+        color: #fff;
+        font-family: 'Georgia', serif;
+    }
+
+    .elegant-form {
+        background-color: #1a1a1a;
+        border: 1px solid #444;
+        max-width: 800px;
+    }
+
+    .form-title {
+        color: #bfa37c;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .form-control-custom {
+        background-color: #2a2a2a;
+        border: 1px solid #555;
+        color: #fff;
+    }
+
+    .form-label {
+        color: #ccc;
+        font-weight: 500;
+    }
+
+    .elegant-btn {
+        border: 1px solid #bfa37c;
+        color: #bfa37c;
+        background-color: transparent;
+        transition: 0.3s ease;
+    }
+
+        .elegant-btn:hover {
+            background-color: #bfa37c;
+            color: #000;
+        }
+
+    .table {
+        background-color: #2a2a2a;
+        color: #fff;
+    }
+
+        .table thead th {
+            border-color: #444;
+            background-color: #333;
+            color: #bfa37c;
+        }
+
+        .table tbody td {
+            border-color: #444;
+        }
+</style>
+

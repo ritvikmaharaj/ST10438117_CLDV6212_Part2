@@ -1,34 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Azure.Storage.Queues;
-using System.Text.Json;
+using DesignerCloset.Services;
 
-namespace TestQueue
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpClient();
+
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+var configuration = builder.Configuration;
+
+builder.Services.AddSingleton(new TableStorageService(configuration.GetConnectionString("AzureStorage")));
+
+// File Share
+builder.Services.AddSingleton<FileStorageService>(sp =>
 {
-    internal class Program
-    {
-        static async Task Main(string[] args)
-        {
-            var connectionString = "DefaultEndpointsProtocol=https;AccountName=st10438117storage;AccountKey=X7eDt8qLiaWfigyHvcl6jPh0q9GQ8W4adalivKtZS3dHD1QNZIQwlnT/ktOIgbJn2JNRcX0hj+oY+AStlagTxw==;EndpointSuffix=core.windows.net";
+    var connectionString = configuration.GetConnectionString("AzureStorage");
+    return new FileStorageService(connectionString, "contracts");
+});
 
-            var queueClient = new QueueClient(
-                connectionString,
-                "table",
-                new QueueClientOptions { MessageEncoding = QueueMessageEncoding.Base64 }
-                );
+var app = builder.Build();
 
-            await queueClient.CreateIfNotExistsAsync();
-            var order = new { CustomerName = "John", ProductName = "Gucci Sneaker", Total = 15000 };
-            string json = JsonSerializer.Serialize(order);
-
-            await queueClient.SendMessageAsync(json);
-            Console.WriteLine($"Message sent {json}");
-
-
-        }
-    }
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapStaticAssets();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}")
+    .WithStaticAssets();
+
+
+app.Run();

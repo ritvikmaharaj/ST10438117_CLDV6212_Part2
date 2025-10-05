@@ -1,0 +1,107 @@
+﻿@model DesignerCloset.Models.Order
+
+@{
+    ViewBag.Title = "Create Order";
+    var customers = ViewBag.Customers as List<DesignerCloset.Models.Customer>;
+    var products = ViewBag.Products as List<DesignerCloset.Models.Product>;
+}
+
+<div class="container mt-5 mb-5 p-4 shadow-lg rounded elegant-form">
+
+    <h2 class="form-title mb-4 text-center">
+        Create Order
+    </h2>
+
+    <form asp-action="Create" method="post">
+        <div class="form-group mb-3">
+            <label class="form-label">Customer</label>
+            <select name="SelectedCustomerRowKey" class="form-control form-control-custom">
+                <option value="">-- Select Customer --</option>
+                @foreach (var c in customers)
+                {
+                    <option value="@c.RowKey">@c.CustomerName @c.CustomerSurname</option>
+                }
+            </select>
+        </div>
+    
+
+        <div class="form-group mb-3">
+            <label class="form-label">Product</label>
+            <select name="ProductId" class="form-control form-control-custom">
+                <option value="">-- Select Product --</option>
+                @foreach (var p in products)
+                {
+                    <option value="@p.RowKey">@p.Name - @p.Description</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label">Shoe Size</label>
+            <select name="ShoeSize" class="form-control form-control-custom" required>
+                <option value="" disabled selected>Select size</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+            </select>
+        </div>
+
+
+        <div class="form-group mb-4">
+            <label class="form-label">Quantity</label>
+            <input type="number" name="Quantity" class="form-control form-control-custom" placeholder="Enter quantity" required min="1" />
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-light px-4 py-2 elegant-btn">Place Order</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    body {
+        background-color: #000; 
+        color: #fff;
+        font-family: 'Georgia', serif;
+    }
+
+    .elegant-form {
+        background-color: #1a1a1a;
+        border: 1px solid #444;
+        max-width: 600px;
+    }
+
+    .form-title {
+        color: #bfa37c;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .form-control-custom {
+        background-color: #2a2a2a;
+        border: 1px solid #555;
+        color: #fff;
+    }
+
+        .form-control-custom::placeholder {
+            color: #aaa;
+        }
+
+    .form-label {
+        color: #ccc;
+        font-weight: 500;
+    }
+
+    .elegant-btn {
+        border: 1px solid #bfa37c;
+        color: #bfa37c;
+        background-color: transparent;
+        transition: 0.3s ease;
+    }
+
+        .elegant-btn:hover {
+            background-color: #bfa37c;
+            color: #000;
+        }
+</style>

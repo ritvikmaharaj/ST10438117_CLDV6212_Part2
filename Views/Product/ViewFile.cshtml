@@ -1,0 +1,23 @@
+﻿@{
+	ViewBag.Title = "View File";
+}
+
+<div class="container mt-4">
+	<h2 class="text-primary">Preview File</h2>
+
+	@if (!string.IsNullOrEmpty(ViewBag.FileUrl))
+	{
+		<div class="text-center">
+			<img src="@ViewBag.FileUrl" alt="Preview" class="img-fluid rounded shadow-sm" style="max-width: 100%; height:auto;" />
+
+		</div>
+	}
+	else
+	{
+		<p class="fst-italic text-muted">The file could not be loaded.</p>
+	}
+	<div class="mt-4">
+		<a asp-action="Index" asp-controller="Product" class="btn btn-secondary">Back to File List</a>
+	</div>
+</div>
+
